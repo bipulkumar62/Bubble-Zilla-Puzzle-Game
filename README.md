@@ -1,231 +1,229 @@
-🧩 Bubble Zilla
-A colorful Android puzzle game built with Kotlin and Jetpack Compose, published on Google Play, and monetized with Google AdMob.
+<div align="center">
 
+<h1>🧩 Bubble Zilla</h1>
 
+<p><strong>A colorful Android puzzle game built to challenge logic, focus, and problem-solving.</strong></p>
 
+<p>
+  <img src="https://img.shields.io/badge/Android-Native-3DDC84?logo=android&logoColor=white" alt="Android">
+  <img src="https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin">
+  <img src="https://img.shields.io/badge/Jetpack-Compose-4285F4?logo=jetpackcompose&logoColor=white" alt="Jetpack Compose">
+  <img src="https://img.shields.io/badge/Google-AdMob-EA4335?logo=googleadmob&logoColor=white" alt="Google AdMob">
+</p>
 
+<p>
+  <a href="https://play.google.com/store/apps/details?id=com.Startupzilla.bubblezilla"><strong>▶ View on Google Play</strong></a>
+  ·
+  <a href="./brain/README.md"><strong>📚 Read the Documentation</strong></a>
+</p>
 
+</div>
 
+---
 
-Understand the project in 30 seconds
-Bubble Zilla is a native Android puzzle game designed for short, engaging brain-training sessions. The application uses Kotlin and Jetpack Compose for its interface and game screens, while Google AdMob provides in-app monetization.
+## 🎮 What is Bubble Zilla?
 
-The repository contains both the Android source code and a dedicated brain/ knowledge base covering product requirements, architecture, setup, monetization, releases, and future development.
+**Bubble Zilla** is a native Android puzzle game created for short and engaging brain-challenge sessions. Players interact with puzzles through a clean mobile interface while the game logic validates each action and updates the current game state.
 
-Project detail	Value
-Product	Bubble Zilla puzzle game
-Platform	Android
-Language	Kotlin
-UI toolkit	Jetpack Compose
-Monetization	Google AdMob
-Package ID	com.Startupzilla.bubblezilla
-Distribution	Google Play
-Project status	Published
-Technical documentation	brain/
-Highlights
-Native Android puzzle-game experience
+The project is built with **Kotlin** and **Jetpack Compose**, uses **Google AdMob** for monetization, and is published on the **Google Play Store**.
 
-Modern declarative interface with Jetpack Compose
+## ⚡ Project at a glance
 
-Clear separation between UI, game state, and puzzle logic
+| | Details |
+| --- | --- |
+| **App name** | Bubble Zilla |
+| **Category** | Puzzle game |
+| **Platform** | Android |
+| **Language** | Kotlin |
+| **UI framework** | Jetpack Compose |
+| **Monetization** | Google AdMob |
+| **Package name** | `com.Startupzilla.bubblezilla` |
+| **Status** | Published on Google Play |
 
-Google AdMob integration for monetization
+## ✨ Highlights
 
-Debug and signed release build support
+- Interactive puzzle-based gameplay
+- Clean and responsive Android interface
+- State-driven UI powered by Jetpack Compose
+- Puzzle logic kept separate from UI code
+- Google AdMob integration
+- Debug and signed release builds
+- Complete technical documentation inside `brain/`
+- Production release available on Google Play
 
-Production distribution through Google Play
+## 🔄 How it works
 
-Structured documentation for developers and AI coding assistants
+```text
+Player Action
+     ↓
+Jetpack Compose UI
+     ↓
+Puzzle Logic
+     ↓
+Game State Updated
+     ↓
+UI Automatically Refreshes
+```
 
-How the application works
-flowchart TD
-    A["Player input"] --> B["Jetpack Compose UI"]
-    B --> C["Puzzle and game logic"]
-    C --> D["Game state"]
-    D --> B
-    B --> E["Google AdMob"]
-The player interacts with a puzzle through the Compose interface.
+1. The player performs an action inside the puzzle screen.
+2. The UI sends that action to the puzzle logic.
+3. The logic validates the move and updates the game state.
+4. Jetpack Compose observes the new state and refreshes the interface.
+5. AdMob handles supported ad placements independently of the game rules.
 
-User actions are passed to the game-logic layer.
+## 🛠 Tech stack
 
-The logic validates the action and updates the current game state.
+| Technology | Purpose |
+| --- | --- |
+| **Kotlin** | Application and puzzle logic |
+| **Jetpack Compose** | Screens, components, themes, and state-based UI |
+| **Gradle** | Dependencies, builds, tests, and release bundles |
+| **Google AdMob** | In-app advertisement monetization |
+| **Google Play Console** | Testing and production distribution |
+| **Markdown** | Product and technical documentation |
 
-Compose observes the state change and redraws only the affected UI.
+Exact SDK versions and dependencies are documented in [`brain/trd.md`](./brain/trd.md).
 
-AdMob remains isolated from the puzzle rules and handles supported ad placements.
+## 📁 Repository structure
 
-Detailed flows and design decisions are documented in brain/architecture.md and brain/prd.md.
-
-Technology stack
-Area	Technology	Responsibility
-Application	Native Android	Runs the game on supported Android devices
-Programming language	Kotlin	Application and puzzle logic
-User interface	Jetpack Compose	Screens, components, state-driven rendering, and theming
-Build system	Gradle	Dependencies, build variants, testing, and release bundles
-Monetization	Google AdMob	In-app advertisements
-Distribution	Google Play Console	Testing and production releases
-Documentation	Markdown	Product, architecture, setup, and operational knowledge
-Exact SDK versions and dependencies belong in brain/trd.md, which should remain the authoritative technical reference.
-
-Repository structure
+```text
 Bubble-Zilla-Puzzle-Game/
-├── app/                     # Main Android application module
+├── app/                       # Main Android application
 │   └── src/
-│       ├── main/            # Kotlin source code and Android resources
-│       ├── test/            # Local unit tests
-│       └── androidTest/     # Instrumented Android tests
-├── brain/                   # Project knowledge base and technical documentation
-│   ├── README.md            # Documentation index
-│   ├── brain.md             # Main technical blueprint
-│   ├── prd.md               # Product requirements and user flows
-│   ├── trd.md               # Technical requirements and versions
-│   ├── architecture.md      # Architecture and data flow
-│   ├── monetization.md      # AdMob strategy and implementation notes
-│   ├── roadmap.md           # Completed, planned, and future work
-│   ├── api.md               # Integration and API reference
-│   ├── setup.md             # Local setup, signing, and test configuration
-│   └── changelog.md         # Release history
-├── gradle/                  # Gradle wrapper configuration
-├── build.gradle.kts         # Root build configuration
-├── settings.gradle.kts      # Project and module configuration
-├── gradle.properties        # Gradle project properties
-├── .gitignore               # Files excluded from version control
-└── README.md                # Project overview
-The tree describes the intended top-level organization. Keep it synchronized with the repository whenever files or modules are renamed.
+│       ├── main/              # Kotlin source code and resources
+│       ├── test/              # Unit tests
+│       └── androidTest/       # Android instrumented tests
+├── brain/                     # Complete project documentation
+│   ├── README.md              # Documentation index
+│   ├── brain.md               # Main technical blueprint
+│   ├── prd.md                 # Product requirements
+│   ├── trd.md                 # Technical requirements
+│   ├── architecture.md        # Architecture and data flow
+│   ├── monetization.md        # AdMob strategy
+│   ├── roadmap.md             # Development roadmap
+│   ├── api.md                 # Integration reference
+│   ├── setup.md               # Setup and build guide
+│   └── changelog.md           # Release history
+├── gradle/                    # Gradle wrapper files
+├── build.gradle.kts           # Root build configuration
+├── settings.gradle.kts        # Project configuration
+├── gradle.properties          # Gradle properties
+├── .gitignore                 # Ignored files
+└── README.md                  # Project overview
+```
 
-Documentation index
-The brain/ directory is the single source of truth for project documentation.
+## 🧠 Project documentation
 
-Document	What it explains
-brain.md	Main technical blueprint, stack, repository structure, and AdMob overview
-prd.md	Product requirements, user stories, features, UX flows, and product direction
-trd.md	SDK versions, dependencies, signing requirements, and build configuration
-architecture.md	Components, state flow, boundaries, and architecture decisions
-monetization.md	AdMob setup, placement strategy, optimization, and future revenue options
-roadmap.md	Completed work, upcoming tasks, and long-term plans
-api.md	AdMob and Jetpack Compose integration patterns
-setup.md	Prerequisites, cloning, building, signing, and test ad configuration
-changelog.md	Version-by-version release history
-These Markdown files are intended for both human contributors and AI coding assistants. Update the relevant document whenever a product rule, dependency, architecture decision, or release process changes.
+The `brain/` folder is the **single source of truth** for product and technical decisions. It is written for both developers and AI coding assistants.
 
-Getting started
-Prerequisites
-Git
+| Document | Purpose |
+| --- | --- |
+| [`brain.md`](./brain/brain.md) | Project blueprint, stack, structure, and AdMob overview |
+| [`prd.md`](./brain/prd.md) | Features, user stories, UX flows, and product requirements |
+| [`trd.md`](./brain/trd.md) | SDK versions, dependencies, signing, and build configuration |
+| [`architecture.md`](./brain/architecture.md) | Components, game-state flow, and design decisions |
+| [`monetization.md`](./brain/monetization.md) | AdMob setup, placements, and monetization strategy |
+| [`roadmap.md`](./brain/roadmap.md) | Completed work, upcoming tasks, and future plans |
+| [`api.md`](./brain/api.md) | Jetpack Compose and AdMob integration patterns |
+| [`setup.md`](./brain/setup.md) | Installation, local setup, testing, and release signing |
+| [`changelog.md`](./brain/changelog.md) | Version-by-version release history |
 
-Android Studio
+## 🚀 Run locally
 
-Android SDK versions defined in brain/trd.md
+### Requirements
 
-A compatible JDK defined by the project configuration
+- Git
+- Android Studio
+- Android SDK and JDK versions listed in `brain/trd.md`
+- Android emulator or physical device
 
-An Android emulator or physical Android device
+### Installation
 
-Clone the repository
+```bash
 git clone https://github.com/bipulkumar62/Bubble-Zilla-Puzzle-Game.git
 cd Bubble-Zilla-Puzzle-Game
-Open and run
-Open the repository in Android Studio.
+```
 
-Allow Gradle to synchronize the project.
+Open the project in Android Studio, allow Gradle to finish syncing, select a device, and run the `app` configuration.
 
-Configure local development values by following brain/setup.md.
+### Build from PowerShell
 
-Select an emulator or connected Android device.
-
-Run the app configuration.
-
-For command-line builds on Windows PowerShell:
-
+```powershell
 .\gradlew.bat assembleDebug
-For macOS or Linux:
+```
 
-./gradlew assembleDebug
-Testing
-Run local unit tests before opening a pull request:
+### Run unit tests
 
+```powershell
 .\gradlew.bat test
-Run instrumented tests with an emulator or Android device connected:
+```
 
-.\gradlew.bat connectedAndroidTest
-Test puzzle rules independently from Compose UI wherever possible. Important state transitions, win or failure conditions, level progression, and reward logic should have deterministic tests.
+### Create a release bundle
 
-AdMob development rules
-Use Google's test ad units during development and automated testing.
+```powershell
+.\gradlew.bat bundleRelease
+```
 
-Never click production ads to test them.
+The release bundle is generated inside:
 
-Keep ad loading and failures separate from puzzle logic.
+```text
+app/build/outputs/bundle/release/
+```
 
-A failed or unavailable ad must not crash the game or block normal gameplay.
+Read [`brain/setup.md`](./brain/setup.md) before creating a signed production build.
 
-Document every production ad placement in brain/monetization.md.
+## 📢 AdMob rules
 
-Follow Google Play and AdMob policies before publishing each release.
+- Always use Google test ads during development.
+- Never click production ads for testing.
+- An unavailable ad must never crash or block the game.
+- Keep advertisement code separate from puzzle logic.
+- Document every production placement in `brain/monetization.md`.
 
-Security and repository hygiene
-Never commit any of the following:
+## 🔐 Security
 
-Signing keystores such as *.jks or *.keystore
+Never commit:
 
-Signing passwords or key.properties
+- `*.jks` or `*.keystore`
+- `key.properties`
+- Signing passwords
+- Private API credentials
+- Service-account files
+- `local.properties`
 
-Private API credentials or service-account files
+Check files before every commit:
 
-Machine-specific local.properties
-
-Local environment files containing secrets
-
-Before every push, check the staged files:
-
+```bash
 git status
 git diff --cached
-If a secret was committed, removing the file from the next commit is not sufficient. Revoke or rotate the exposed credential and remove it from Git history.
+```
 
-Release build
-Before creating a production bundle:
+## 🤝 Contributing
 
-Update the version code and version name.
+1. Fork the repository.
+2. Create a branch: `git checkout -b feature/feature-name`
+3. Make one focused change.
+4. Add or update tests and documentation.
+5. Open a pull request explaining what changed and how it was tested.
 
-Update brain/changelog.md.
+## 🗺 Roadmap
 
-Run unit and instrumented tests.
+Completed features, upcoming improvements, and long-term plans are maintained in [`brain/roadmap.md`](./brain/roadmap.md).
 
-Verify AdMob behavior with approved test configuration.
+## 📄 License
 
-Review signing and release steps in brain/setup.md.
+No open-source license has been declared yet. Until a `LICENSE` file is added, reuse and redistribution rights are not granted automatically.
 
-Build the Android App Bundle.
+## 👨‍💻 Developer
 
-.\gradlew.bat bundleRelease
-The generated bundle is normally available under:
+Developed and maintained by **Bipul Kumar**.
 
-app/build/outputs/bundle/release/
-Do not commit the generated bundle or private signing material.
+- GitHub: [@bipulkumar62](https://github.com/bipulkumar62)
+- Repository: [Bubble-Zilla-Puzzle-Game](https://github.com/bipulkumar62/Bubble-Zilla-Puzzle-Game)
+- Google Play: [Download Bubble Zilla](https://play.google.com/store/apps/details?id=com.Startupzilla.bubblezilla)
 
-Roadmap
-The live roadmap is maintained in brain/roadmap.md. Keep the README focused on the current product; use the roadmap for planned features and long-term ideas.
+---
 
-Contributing
-Fork the repository.
-
-Create a focused branch:
-
-git checkout -b feature/short-feature-name
-Make one logically grouped change.
-
-Add or update tests and documentation.
-
-Run the relevant test suite.
-
-Open a pull request describing the problem, solution, and verification performed.
-
-Avoid combining unrelated refactors, features, and formatting changes in one pull request.
-
-Google Play
-Bubble Zilla is published on Google Play: https://play.google.com/store/apps/details?id=com.Startupzilla.bubblezilla&hl=en-US
-
-
-
-License
-No open-source license has been declared in this README. Until a LICENSE file is added, the source code remains protected by default and reuse rights are not granted automatically.
-
+<div align="center">
+  <strong>If Bubble Zilla helped you, consider giving the repository a ⭐.</strong>
+</div>
