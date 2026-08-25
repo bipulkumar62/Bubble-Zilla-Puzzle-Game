@@ -9,8 +9,8 @@ Bubblezilla is a free-to-play Android app monetized exclusively through **Google
 
 | Ad Type | Unit ID | Placement |
 |---------|---------|-----------|
-| **Banner** | `ca-app-pub-5901475569503459/4414046430` | Bottom of screen (persistent) |
-| **Interstitial** | `ca-app-pub-5901475569503459/3588049928` | Full-screen at natural breaks |
+| **Banner** | `ca-app-pub-5901475569503459/7744523959` | Bottom of screen (persistent) |
+| **Interstitial** | `ca-app-pub-5901475569503459/6775996569` | Full-screen at natural breaks |
 | **App (AdMob App ID)** | `ca-app-pub-5901475569503459~5686983705` | Declared in `AndroidManifest.xml` |
 
 ---

@@ -19,8 +19,8 @@ Always adhere to the following rules, standards, and architecture when working o
 ## 📢 Google Mobile Ads SDK (AdMob) Integration
 Bubblezilla uses AdMob for monetization. You must preserve the existing AdMob setup unless explicitly instructed otherwise:
 - **Application ID**: `ca-app-pub-5901475569503459~5686983705` (configured in `AndroidManifest.xml`)
-- **Banner Ad Unit ID**: `ca-app-pub-5901475569503459/4414046430` (configured in `strings.xml`)
-- **Interstitial Ad Unit ID**: `ca-app-pub-5901475569503459/3588049928` (configured in `strings.xml`)
+- **Banner Ad Unit ID**: `ca-app-pub-5901475569503459/7744523959` (configured in `strings.xml`)
+- **Interstitial Ad Unit ID**: `ca-app-pub-5901475569503459/6775996569` (configured in `strings.xml`)
 
 ### Ad Development Guidelines:
 1. **Banner Ads**: Always use the `BannerAd` composable which wraps Android's `AdView`. Ensure it manages lifecycles properly using `DisposableEffect` to trigger `adView.destroy()` when leaving composition.

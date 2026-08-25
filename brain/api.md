@@ -32,7 +32,7 @@ MobileAds.initialize(this) {
 |-----------|-------|
 | **Class** | `com.google.android.gms.ads.AdView` |
 | **Ad Size** | `AdSize.BANNER` (320×50 dp) |
-| **Unit ID** | `ca-app-pub-5901475569503459/4414046430` |
+| **Unit ID** | `ca-app-pub-5901475569503459/7744523959` |
 | **Ad Request** | `AdRequest.Builder().build()` |
 
 **Usage Pattern in Compose**:
@@ -54,7 +54,7 @@ DisposableEffect(adView) {
 |-----------|-------|
 | **Class** | `com.google.android.gms.ads.interstitial.InterstitialAd` |
 | **Load Method** | `InterstitialAd.load(context, adUnitId, request, callback)` |
-| **Unit ID** | `ca-app-pub-5901475569503459/3588049928` |
+| **Unit ID** | `ca-app-pub-5901475569503459/6775996569` |
 | **Show Method** | `interstitialAd?.show(activity)` |
 
 **Callback Handling**:

@@ -19,8 +19,8 @@ Key libraries include:
 - **AndroidManifest.xml Settings**:
   - Contains `<meta-data>` entry specifying the AdMob Application ID: `ca-app-pub-5901475569503459~5686983705`.
 - **String Resources (`strings.xml`)**:
-  - Banner Ad Unit: `ca-app-pub-5901475569503459/4414046430`
-  - Interstitial Ad Unit: `ca-app-pub-5901475569503459/3588049928`
+  - Banner Ad Unit: `ca-app-pub-5901475569503459/7744523959`
+  - Interstitial Ad Unit: `ca-app-pub-5901475569503459/6775996569`
 
 ## 4. Production Build & Release Configuration
 - **Signing Configurations**:

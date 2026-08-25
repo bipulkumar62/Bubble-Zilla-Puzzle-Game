@@ -80,8 +80,8 @@ Bubblezilla comes with pre-configured AdMob setups for two types of ads: **Banne
 The AdMob configuration is split between [AndroidManifest.xml](file:///c:/Users/Aditya/OneDrive/Desktop/My%20Apps%20Development/Bubblezilla/app/src/main/AndroidManifest.xml) and [strings.xml](file:///c:/Users/Aditya/OneDrive/Desktop/My%20Apps%20Development/Bubblezilla/app/src/main/res/values/strings.xml):
 
 *   **AdMob Application ID** *(declared in manifest)*: `ca-app-pub-5901475569503459~5686983705`
-*   **Banner Ad Unit ID**: `ca-app-pub-5901475569503459/4414046430`
-*   **Interstitial Ad Unit ID**: `ca-app-pub-5901475569503459/3588049928`
+*   **Banner Ad Unit ID**: `ca-app-pub-5901475569503459/7744523959`
+*   **Interstitial Ad Unit ID**: `ca-app-pub-5901475569503459/6775996569`
 
 ### 2. Banner Ad Composable ([BannerAd.kt](file:///c:/Users/Aditya/OneDrive/Desktop/My%20Apps%20Development/Bubblezilla/app/src/main/java/com/startupzilla/bubblezilla/BannerAd.kt))
 A Compose-compatible banner wrapper that converts Android's classic `AdView` to a Composable element using `AndroidView`:
