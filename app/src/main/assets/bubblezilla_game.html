@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bubblezilla</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #08121f;
+      color: #f8fbff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      touch-action: none;
+      user-select: none;
+    }
+    #game {
+      position: fixed;
+      inset: 0;
+    }
+    .hud {
+      position: fixed;
+      top: max(12px, env(safe-area-inset-top));
+      left: 12px;
+      right: 12px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hud-item {
+      min-width: 0;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(7, 16, 28, 0.72);
+      padding: 8px 10px;
+      backdrop-filter: blur(12px);
+    }
+    .label {
+      display: block;
+      color: #91a9c9;
+      font-size: 11px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .value {
+      display: block;
+      margin-top: 4px;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(4, 9, 15, 0.72);
+      z-index: 3;
+    }
+    .panel {
+      width: min(420px, 100%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      background: rgba(10, 20, 34, 0.94);
+      padding: 22px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: 0;
+    }
+    p {
+      margin: 0 0 18px;
+      color: #b9c9dc;
+      line-height: 1.45;
+    }
+    button {
+      width: 100%;
+      min-height: 48px;
+      border: 0;
+      border-radius: 8px;
+      background: #36d399;
+      color: #061016;
+      font: inherit;
+      font-size: 17px;
+      font-weight: 800;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div class="hud">
+    <div class="hud-item"><span class="label">Level</span><span id="level" class="value">1</span></div>
+    <div class="hud-item"><span class="label">Score</span><span id="score" class="value">0</span></div>
+    <div class="hud-item"><span class="label">Lives</span><span id="lives" class="value">3</span></div>
+  </div>
+  <div id="overlay" class="overlay">
+    <div class="panel">
+      <h1>Bubblezilla</h1>
+      <p id="message">Pop glowing 3D bubbles before they float away. Each level gets faster and denser.</p>
+      <button id="start">Start</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from "https://unpkg.com/three@0.165.0/build/three.module.js";
+
+    const canvas = document.getElementById("game");
+    const levelEl = document.getElementById("level");
+    const scoreEl = document.getElementById("score");
+    const livesEl = document.getElementById("lives");
+    const overlay = document.getElementById("overlay");
+    const message = document.getElementById("message");
+    const startButton = document.getElementById("start");
+
+    const levels = [
+      { target: 8, spawnMs: 1050, speed: 0.82, max: 6, points: 10 },
+      { target: 18, spawnMs: 880, speed: 1.04, max: 8, points: 12 },
+      { target: 32, spawnMs: 720, speed: 1.28, max: 10, points: 15 },
+      { target: 50, spawnMs: 590, speed: 1.55, max: 12, points: 18 },
+      { target: 75, spawnMs: 470, speed: 1.9, max: 14, points: 22 },
+      { target: 105, spawnMs: 380, speed: 2.25, max: 16, points: 28 }
+    ];
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: false,
+      powerPreference: "high-performance"
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setClearColor(0x08121f, 1);
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0x08121f, 10, 32);
+
+    const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 100);
+    camera.position.set(0, 0, 18);
+
+    const ambientLight = new THREE.HemisphereLight(0x9ed8ff, 0x16263d, 2.2);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.1);
+    keyLight.position.set(4, 8, 7);
+    scene.add(keyLight);
+
+    const rimLight = new THREE.PointLight(0x48f0ff, 2.8, 28);
+    rimLight.position.set(-5, -3, 8);
+    scene.add(rimLight);
+
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    const geometry = new THREE.SphereGeometry(1, 40, 28);
+    const bubbles = [];
+    const colors = [0xff5f7e, 0x40e0d0, 0x7cf58a, 0xffdc5e, 0xff8f45, 0xa98bff, 0x4fb9ff, 0xff5dd7];
+
+    let score = 0;
+    let lives = 3;
+    let levelIndex = 0;
+    let running = false;
+    let lastSpawn = 0;
+    let lastFrame = performance.now();
+
+    function level() {
+      return levels[Math.min(levelIndex, levels.length - 1)];
+    }
+
+    function updateHud() {
+      levelEl.textContent = String(levelIndex + 1);
+      scoreEl.textContent = String(score);
+      livesEl.textContent = String(lives);
+    }
+
+    function resize() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    }
+
+    function spawnBubble() {
+      const current = level();
+      if (bubbles.length >= current.max) return;
+
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const material = new THREE.MeshPhysicalMaterial({
+        color,
+        roughness: 0.18,
+        metalness: 0,
+        transmission: 0.45,
+        thickness: 0.65,
+        transparent: true,
+        opacity: 0.78,
+        clearcoat: 1,
+        clearcoatRoughness: 0.08,
+        emissive: color,
+        emissiveIntensity: 0.16
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      const scale = 0.55 + Math.random() * 0.56;
+      mesh.scale.setScalar(scale);
+      mesh.position.set(
+        THREE.MathUtils.randFloat(-5.4, 5.4),
+        -9.4,
+        THREE.MathUtils.randFloat(-4.5, 2.5)
+      );
+      mesh.userData = {
+        drift: THREE.MathUtils.randFloat(-0.32, 0.32),
+        speed: current.speed * THREE.MathUtils.randFloat(0.82, 1.18),
+        spin: THREE.MathUtils.randFloat(0.5, 1.8)
+      };
+      bubbles.push(mesh);
+      scene.add(mesh);
+    }
+
+    function popBubble(mesh) {
+      const index = bubbles.indexOf(mesh);
+      if (index >= 0) bubbles.splice(index, 1);
+      scene.remove(mesh);
+      mesh.material.dispose();
+      score += level().points;
+
+      if (score >= level().target && levelIndex < levels.length - 1) {
+        levelIndex += 1;
+        lives = Math.min(lives + 1, 5);
+      }
+      updateHud();
+    }
+
+    function missBubble(mesh) {
+      const index = bubbles.indexOf(mesh);
+      if (index >= 0) bubbles.splice(index, 1);
+      scene.remove(mesh);
+      mesh.material.dispose();
+      lives -= 1;
+      updateHud();
+      if (lives <= 0) endGame();
+    }
+
+    function clearBubbles() {
+      while (bubbles.length) {
+        const bubble = bubbles.pop();
+        scene.remove(bubble);
+        bubble.material.dispose();
+      }
+    }
+
+    function startGame() {
+      score = 0;
+      lives = 3;
+      levelIndex = 0;
+      running = true;
+      lastSpawn = 0;
+      lastFrame = performance.now();
+      clearBubbles();
+      updateHud();
+      overlay.classList.add("hidden");
+    }
+
+    function endGame() {
+      running = false;
+      clearBubbles();
+      message.textContent = `Game over. Final score: ${score}.`;
+      startButton.textContent = "Play Again";
+      overlay.classList.remove("hidden");
+      if (window.BubblezillaAndroid && typeof window.BubblezillaAndroid.onGameOver === "function") {
+        window.BubblezillaAndroid.onGameOver(score);
+      }
+    }
+
+    function onPointerDown(event) {
+      if (!running) return;
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const hits = raycaster.intersectObjects(bubbles, false);
+      if (hits.length) popBubble(hits[0].object);
+    }
+
+    function animate(now) {
+      requestAnimationFrame(animate);
+      const delta = Math.min((now - lastFrame) / 1000, 0.04);
+      lastFrame = now;
+
+      if (running) {
+        const current = level();
+        if (now - lastSpawn > current.spawnMs) {
+          spawnBubble();
+          lastSpawn = now;
+        }
+
+        for (let i = bubbles.length - 1; i >= 0; i -= 1) {
+          const bubble = bubbles[i];
+          bubble.position.y += bubble.userData.speed * delta * 2.4;
+          bubble.position.x += bubble.userData.drift * delta;
+          bubble.rotation.x += bubble.userData.spin * delta;
+          bubble.rotation.y += bubble.userData.spin * delta * 0.7;
+          bubble.material.emissiveIntensity = 0.12 + Math.sin(now * 0.004 + i) * 0.07;
+          if (bubble.position.y > 9.4) missBubble(bubble);
+        }
+      }
+
+      rimLight.position.x = Math.sin(now * 0.0012) * 6;
+      rimLight.position.y = Math.cos(now * 0.001) * 4;
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener("resize", resize);
+    window.addEventListener("pointerdown", onPointerDown, { passive: true });
+    startButton.addEventListener("click", startGame);
+
+    resize();
+    updateHud();
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

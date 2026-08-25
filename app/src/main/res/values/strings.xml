@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Bubblezilla</string>
+    <string name="banner_ad_unit_id">ca-app-pub-5901475569503459/4414046430</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-5901475569503459/3588049928</string>
+
+    <string name="kickbacks_title">Kickbacks Sign In</string>
+    <string name="kickbacks_sign_in_prompt">Welcome back! Sign in to continue to Kickbacks.</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="sign_in_button">Sign In</string>
+    <string name="sign_in_error">Please enter both email and password.</string>
+    <string name="kickbacks_home_welcome">Kickbacks Home</string>
+</resources>
