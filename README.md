@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>🧩 Bubble Zilla</h1>
+
 
 <p><strong>A colorful Android puzzle game built to challenge logic, focus, and problem-solving.</strong></p>
 
