@@ -210,10 +210,6 @@ git diff --cached
 
 Completed features, upcoming improvements, and long-term plans are maintained in [`brain/roadmap.md`](./brain/roadmap.md).
 
-## 📄 License
-
-No open-source license has been declared yet. Until a `LICENSE` file is added, reuse and redistribution rights are not granted automatically.
-
 ## 👨‍💻 Developer
 
 Developed and maintained by **Bipul Kumar**.
